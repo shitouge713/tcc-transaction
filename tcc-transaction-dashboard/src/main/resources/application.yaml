@@ -1,0 +1,47 @@
+server:
+  servlet:
+    context-path: /${spring.application.name}
+  port: 22332
+
+logging:
+  level:
+    root: info
+
+spring:
+  application:
+    name: tcc-transaction-dashboard
+  resources:
+    static-locations: classpath:templates/
+    chain:
+      cache: false
+  freemarker:
+    enabled: true
+    cache: false
+    charset: UTF-8
+    suffix: .html
+    check-template-location: true
+    template-loader-path: classpath:/templates/
+  tcc:
+    dashboard:
+      userName: admin
+      password: 123456
+      connection-mode: server
+    registry:
+      registry-type: direct
+      registry-role: dashboard
+      direct:
+        server-addresses-for-dashboard: localhost:12332
+#      nacos:
+#        server-addr: localhost:8848
+#      zookeeper:
+#        connect-string: localhost:2181
+    recovery:
+#      update-job-forcibly: false
+      recovery-enabled: false
+      quartz-clustered: true
+      quartz-data-source-url: jdbc:mysql://localhost:3306/TCC_SERVER?useSSL=false&allowPublicKeyRetrieval=true
+      quartz-data-source-driver: com.mysql.jdbc.Driver
+      quartz-data-source-user: root
+      quartz-data-source-password: 123456
+feign:
+  path: /tcc-transaction-server

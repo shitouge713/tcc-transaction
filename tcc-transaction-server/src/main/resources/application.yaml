@@ -1,0 +1,37 @@
+server:
+  port: 12332
+  servlet:
+    context-path: /${spring.application.name}
+
+spring:
+  application:
+    name: tcc-transaction-server
+  tcc:
+    storage:
+      kryo-pool-size: 512
+      storage-type: memory
+      #redis:
+        #host: 127.0.0.1
+        #port: 6379
+        #database: 0
+        #pool-config:
+          #min-idle: 8
+          #max-idle: 8
+          #max-total: 8
+          #max-wait-millis: 300
+    recovery:
+      quartz-clustered: true
+      quartz-data-source-url: jdbc:mysql://localhost:3306/TCC_SERVER?useSSL=false&allowPublicKeyRetrieval=true
+      quartz-data-source-driver: com.mysql.jdbc.Driver
+      quartz-data-source-user: root
+      quartz-data-source-password: 123456
+    registry:
+      registry-types:
+      - direct
+      cluster-name: default
+    remoting:
+      listen-port: 2332
+      request-process-thread-queue-capacity: 1024
+logging:
+  level:
+    root: info
